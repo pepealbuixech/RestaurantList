@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RestaurantList</string>
+    <string name="search">Search</string>
+    <string name="restaurant_image">Restaurant Image</string>
+</resources>
