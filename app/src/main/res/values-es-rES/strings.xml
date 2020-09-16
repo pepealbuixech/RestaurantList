@@ -3,4 +3,6 @@
     <string name="app_name">RestaurantList</string>
     <string name="search">Buscar</string>
     <string name="restaurant_image">Imagen Restaurante</string>
+    <string name="Info">Info</string>
+    <string name="Order">Pedir</string>
 </resources>
