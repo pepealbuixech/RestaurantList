@@ -1,71 +1,43 @@
 package com.example.restaurantlist.ui.restaurants
 
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.databinding.BindingAdapter
-import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.example.restaurantlist.R
-import com.example.restaurantlist.databinding.ComponentRestaurantBinding
-import com.example.restaurantlist.interfaces.ApiService
-import com.example.restaurantlist.models.GeoPoint
-import com.example.restaurantlist.models.Restaurant
-import com.google.gson.Gson
+import com.example.restaurantlist.data.ApiService
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.view_model.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
+
+
+//Conecta con el xml de la pantalla principal
+//Creamos un objeto viewModel llamado a traves del Modules con by inject. Con esa instancia observamos el contenido de
+// la varaible de RestaurantViewModel donde se almacenan la lista de restaurantes.
+//llamamos al objetoi recyclerView del xml para indicarle que utilizaremos un LinearLayoutManager
 
 
 class RestaurantsActivity : AppCompatActivity() {
 
+//private val viewModel by inject<RestaurantsViewModel>()
+private val viewModel: RestaurantsViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //restaurant_image.load("")
 
-        val ejemplo = Restaurant("casaPepe",
-            "https://rockcontent.com/es/wp-content/uploads/2019/02/google-trends-1280x720.png",
-            10, 0,
-            GeoPoint(2.4,3.5), "estrellaMichelin", 1)
-        val restaurants = arrayListOf<Restaurant>(ejemplo, ejemplo, ejemplo, ejemplo, ejemplo)
 
-        recyclerView.adapter = RestaurantAdapter(restaurants)
+
         recyclerView.layoutManager = LinearLayoutManager(this)
+        //recyclerView.adapter = RestaurantAdapter(restaurantes ?: listOf())
 
-    val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://arcane-atoll-67184.herokuapp.com/api/")
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+        viewModel.restaurants.observe(this, Observer
+            { recyclerView.adapter = RestaurantAdapter(it ?: listOf())  })
+            // Ó ----- {restaurantes -> recyclerView.adapter = RestaurantAdapter(restaurantes ?: listOf())  }
 
-        val service = retrofit.create<ApiService>(ApiService::class.java)
-
-        service.getAllRestaruants().enqueue(object : Callback<List<Restaurant>> {
-            override fun onResponse(
-                call: Call<List<Restaurant>>,
-                response: Response<List<Restaurant>>
-            ) {
-                val restaurants = response?.body()
-                Log.i("name", Gson().toJson(restaurants))
-            }
-
-            override fun onFailure(call: Call<List<Restaurant>>, t: Throwable) {
-                t?.printStackTrace()
-            }
-
-        })
 
     }
+
 
     
 

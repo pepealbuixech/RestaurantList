@@ -1,4 +1,4 @@
-package com.example.restaurantlist.interfaces
+package com.example.restaurantlist.data
 
 import com.example.restaurantlist.models.Restaurant
 import retrofit2.Call
@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface ApiService {
+interface ApiService { // Metodos Retrofit para el contacto con la API
 
     @GET("restaurants/")
     fun getAllRestaruants(): Call<List<Restaurant>>

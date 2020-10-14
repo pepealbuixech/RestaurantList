@@ -23,7 +23,7 @@
         android:layout_margin="@dimen/margin_medium"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/RecyclerView"
+        android:id="@+id/recyclerView"
         tools:listitem="@layout/component_restaurant"
         android:paddingBottom="100dp"
         android:scrollbars="vertical"
