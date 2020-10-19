@@ -6,7 +6,7 @@ import com.example.restaurantlist.ui.restaurants.RestaurantsViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-@JvmField
+//@JvmField
 val appModule = module {
     single<ApiService> { ApiClient.INSTANCE }
 

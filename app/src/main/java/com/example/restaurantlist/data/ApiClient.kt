@@ -26,7 +26,7 @@ object ApiClient {
 
     val INSTANCE: ApiService by lazy {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://arcane-atoll-67184.herokuapp.com/api/")//BuildConfig.BASE_URL)
+            .baseUrl("https://restaurant-test-pepe.herokuapp.com/")//BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
